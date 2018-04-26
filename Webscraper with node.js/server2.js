@@ -22,8 +22,10 @@ app.get('/scrape', function(req, res){
       var $ = cheerio.load(html);
 
       //defining the variables we're going to capture
-      var name, difficulty, preptime;
-      var json = { name : "", difficulty : "", preptime : ""};
+      //var name, difficulty, preptime;
+      //var json = { name : "", difficulty : "", preptime : ""};
+      var title;
+      var json = {title : ""};
 
       /*$('.search-list').filter(function(){ //same as before but with a different DOM
         var data = $(this);
@@ -48,7 +50,13 @@ app.get('/scrape', function(req, res){
         json.preptime = preptime;
       })*/
 
-      $('.search-list').find()
+      $('.search-list').find('.search-list-item-content').filter(function(){
+        var data = $(this);
+
+        title = data.children().first().html();
+
+        json.title = title;
+      })
     }
 
     //to save the json data to our computer we will use the built-in 'fs'-library
